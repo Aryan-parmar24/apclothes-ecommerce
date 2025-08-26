@@ -58,7 +58,26 @@ _Add screenshots here to showcase the UI/UX_
 
 ## 📁 Project Structure
 
----```bash
+apclothes-ecommerce/
+<br>
+│
+<br>
+├── users/ # User authentication & profiles
+<br>
+├── products/ # Product models, views, templates
+<br>
+├── orders/ # Cart, Order, Checkout, Payment
+<br>
+├── templates/ # HTML templates
+<br>
+├── static/ # Static files (CSS, JS, images)
+<br>
+├── manage.py
+<br>
+└── requirements.txt
+<br>
+---
+```bash
 # 1. Clone the repository
 git clone https://github.com/Aryan-parmar24/apclothes-ecommerce.git
 cd apclothes-ecommerce
@@ -97,6 +116,7 @@ This project is open-source and available under the MIT License.
 ## 📬 Contact
 Created by Aryan Parmar
 Feel free to reach out for questions, suggestions, or collaborations.
+
 
 
 
