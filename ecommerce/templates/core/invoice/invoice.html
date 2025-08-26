@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice - Bethany</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <!-- js link -->
+   <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+  <style>
+    .invoice-box {
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      margin-top: 60px;
+    }
+    .invoice-title {
+      margin-bottom: 20px;
+    }
+    .summary {
+      font-size: 1.1rem;
+    }
+    table th, table td {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container invoice-box">
+  <div class="row">
+    <div class="col-12 text-center invoice-title">
+      <h2>Thank you for your purchase!</h2>
+      <h4>Invoice Summary</h4>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h5>Customer Info</h5>
+      <p>
+        <strong>Name:</strong> {{ order.user.username }}<br>
+        <strong>Email:</strong> {{ order.user.email }}
+      </p>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <h5>Shipping Address</h5>
+      <p>
+        {{ CheckoutAddress.street_address }}<br>
+        {% if CheckoutAddress.apartment_address %}
+          {{ CheckoutAddress.apartment_address }}<br>
+        {% endif %}
+        {{ CheckoutAddress.country.name }} - {{ CheckoutAddress.zip_code }}
+      </p>
+    </div>
+  </div>
+
+  <!-- ✅ Order Items Table -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h5>Order Details</h5>
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price per Item (₹)</th>
+            <th>Total (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in order.items.all %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.product.price|floatformat:2 }}</td>
+            <td>{{ item.get_final_price|floatformat:2 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="text-end">Grand Total:</th>
+            <th>₹ {{ order.get_total_price|floatformat:2 }}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- ✅ Order Summary -->
+  <div class="row summary mb-4">
+    <div class="col-md-6">
+      <strong>Order ID:</strong> {{ order.order_id }}<br>
+      <strong>Razorpay Order ID:</strong> {{ order.razorpay_order_id }}<br>
+      <strong>Razorpay Payment ID:</strong> {{ order.razorpay_payment_id }}<br>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <strong>Payment Status:</strong> 
+      {% if order.ordered %}
+        <span class="text-success">Paid</span>
+      {% else %}
+        <span class="text-danger">Not Paid</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="{% url 'index' %}" class="btn btn-primary">Continue Shopping</a>
+    <!-- <button class="btn btn-primary">print</button> -->
+  </div>
+</div>
+
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script>
+
+  // document.querySelector("button").addEventListener("click",function(){
+  //   window.print();
+  // })
+</script>
+</body>
+</html>

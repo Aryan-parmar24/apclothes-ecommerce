@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Address</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1e1e1e;
+            animation: fadeIn 1s ease-in-out;
+            padding: 30px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .image-side {
+            flex: 1;
+            background: url("{% static 'img/services.jpg' %}") no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
+            filter: brightness(0.4);
+        }
+
+        .checkout-card {
+            background-color: #1b1b1b;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 120, 60, 0.2);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #f9853c40;
+            transition: transform 0.3s ease;
+        }
+
+        .checkout-card:hover {
+            transform: scale(1.01);
+        }
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 51px;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #f9853c;
+    font-size: 1.2rem;
+    pointer-events: none; /* so icon won't block clicking input */
+    z-index: 2;
+}
+
+.input-icon input, 
+.input-icon select {
+    padding-left: 2.8rem !important; /* enough space for icon */
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #f9853c !important;
+    border-radius: 0 !important;
+    color: #f1f1f1 !important;
+    height: 2.8rem !important;
+    font-size: 1rem !important;
+    z-index: 1;
+}
+.checkout-card input::placeholder,
+.checkout-card select::placeholder {
+    color: gray;
+    opacity: 1;
+}
+
+.input-icon input:focus, 
+.input-icon select:focus {
+    border-color: #f9853c !important;
+    box-shadow: 0 1px 0 0 #f9853c !important;
+    background-color: transparent !important;
+    color: white !important;
+    outline: none !important;
+}
+
+        .form-label {
+            color: #f9853c;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .btn-checkout {
+            background-color: #f9853c;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 1.1rem;
+        }
+
+        .btn-checkout:hover {
+            background-color: #d45500;
+        }
+
+        .alert-success {
+            background-color: #274421;
+            color: #b7d7a8;
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #b7d7a8;
+        }
+
+        a {
+            color: #f9853c;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff7f2a;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex">
+    <div class="form-side">
+        <div class="checkout-card">
+            {% if payment_allow %}
+                <div class="alert-success mb-4">
+                    <i class="bi bi-check-circle-fill"></i> Address Already Saved! You can proceed to payment.
+                </div>
+                <a href="{% url 'payment' %}" class="btn-checkout">Proceed to Payment</a>
+            {% else %}
+                <h3 class="mb-4 text-center" style="color:#f9853c;">
+                    <i class="bi bi-geo-alt-fill"></i> Shipping Address
+                </h3>
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-4 input-icon">
+                        <label for="{{ form.street_address.id_for_label }}" class="form-label"><i class="bi bi-house-door-fill"></i> Street Address</label>
+                        {{ form.street_address }}
+                    </div>
+
+                    <div class="mb-4 input-icon">
+                        <label for="{{ form.apartment_address.id_for_label }}" class="form-label"><i class="bi bi-building"></i> Apartment / Suite</label>
+                        {{ form.apartment_address }}
+                    </div>
+
+                    <div class="mb-4 input-icon">
+                        <label for="{{ form.country.id_for_label }}" class="form-label"><i class="bi bi-globe"></i> Country</label>
+                        {{ form.country }}
+                    </div>
+
+                    <div class="mb-4 input-icon">
+                        <label for="{{ form.zip.id_for_label }}" class="form-label"><i class="bi bi-mailbox2"></i> ZIP / Postal Code</label>
+                        {{ form.zip }}
+                    </div>
+
+                    <button type="submit" class="btn-checkout mt-3">Save and Continue</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="image-side d-none d-md-block"></div>
+</div>
+
+</body>
+</html>

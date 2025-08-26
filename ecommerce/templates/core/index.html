@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+{% load static %}
+{% load cart_template_tag %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - Bethany Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+
+  <!-- Vendor CSS Files -->
+
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <!-- js link -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+  <!-- Include Glightbox CSS and JS -->
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+
+  <!-- =======================================================
+  * Template Name: Bethany
+  * Template URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    body,
+    .main,
+    .footer,
+    .header,
+    .card,
+    .section {
+      background-color: #121212 !important;
+      color: #e0e0e0 !important;
+    }
+
+
+
+    #header {
+      background: #1e1e1e;
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    /* .navmenu a,
+    .btn-getstarted,
+    .btn {
+      background-color: #2c2c2c !important;
+      color: #ffffff !important;
+      border: 1px solid #444 !important;
+    } */
+
+    .btn-getstarted:hover,
+    .btn:hover {
+      background-color: #575757 !important;
+    }
+
+    .stats.section {
+      background-color: #1b1b1b !important;
+      color: #f0f0f0 !important;
+    }
+
+    .card {
+      background-color: #1e1e1e !important;
+      border: 1px solid #2e2e2e !important;
+    }
+
+    .card .card-title,
+    .card .card-text {
+      color: #ccc !important;
+    }
+
+    .footer {
+      background-color: #181818 !important;
+      color: #bdbdbd !important;
+    }
+
+    .footer a {
+      color: #bdbdbd !important;
+    }
+
+    .footer a:hover {
+      color: #ffffff !important;
+    }
+
+    /* .btn-get-started {
+      background-color: #f36106 !important;
+      color: #fff !important;
+      border-color: #f5670f !important;
+    } */
+
+    /* .btn-get-started:hover {
+      background-color: #f39154 !important;
+    } */
+
+
+
+
+    /* Fix nav link styles */
+    .navmenu ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    #hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      animation: blurPulse 8s ease-in-out infinite;
+    }
+
+    /* Each slide gets its own image */
+    .slide-1 {
+      background-image: url("{% static 'img/index_img.webp' %}");
+    }
+
+    .slide-2 {
+      background-image: url("{% static 'img/2.jpeg' %}");
+    }
+
+    .slide-3 {
+      background-image: url("{% static 'img/4.jpeg' %}");
+    }
+
+    .slide-4 {
+      background-image: url("{% static 'img/5.jpg' %}");
+    }
+
+    .slide-5 {
+      background-image: url("{% static 'img/1.jpg' %}");
+    }
+
+    /* Visible slide */
+    .background-image.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+
+
+
+
+
+
+    /* ========================= */
+    /* NEW NAVBAR ADDITIONAL CSS */
+    /* ========================= */
+
+    .navmenu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .navmenu a {
+      color: #fff;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      background-color: transparent;
+    }
+
+    .navmenu a:hover {
+      background-color: #ff6600;
+      color: #fff;
+    }
+
+    /* Cart badge */
+    .badge {
+      background: #ff6600;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 5px;
+    }
+
+    /* Welcome text */
+    .welcome-text {
+      color: #fff;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+
+    /* Button styles (Login, Logout, Register) */
+    /* .btn-getstarted {
+      background-color: #ff6600;
+      color: white !important;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    } */
+
+    .btn-getstarted:hover {
+      background-color: #e85d04;
+      color: white;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .navmenu ul {
+        flex-direction: column;
+        background: #1e1e1e;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        display: none;
+      }
+
+      .mobile-nav-toggle {
+        display: block;
+      }
+
+      .navmenu.navmenu-open ul {
+        display: flex;
+      }
+    }
+
+
+    /* Button styles (Logout/Login/Register) */
+    .btn-getstarted {
+      background-color: #0f110d !important;
+      color: white !important;
+      padding: 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      margin-left: 15px;
+      display: inline-block;
+      white-space: nowrap;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .btn-getstarted:hover {
+      background-color: #f5670f !important;
+    }
+
+    /* Cart count badge (red number) */
+    .navmenu .badge {
+      background-color: #f5670f;
+      color: white;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 8px;
+      vertical-align: top;
+      margin-left: 4px;
+    }
+
+    .logo {
+      background-color: #f5670f !important;
+      background-color: #f5670f !important;
+      /* A medium-dark gray */
+      padding: 0.5rem 1rem;
+      /* Add some padding so text doesn't stick to edges */
+      border-radius: 4px;
+      /* Optional: rounded corners */
+    }
+
+    .sitename {
+      color: #e0e0e0 !important;
+      /* Light text for contrast */
+      margin: 0;
+      /* Remove default margin for h1 */
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    /* card css */
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 20px rgba(255, 165, 0, 0.3);
+      transform: translateY(-5px);
+    }
+
+    /* contact us */
+    /* Apply dark background and light text to contact section */
+    #contact {
+      background-color: #121212;
+      /* Dark background */
+      color: #e0e0e0;
+      /* Light text */
+    }
+
+    /* Headings */
+    #contact h2,
+    #contact h3 {
+      color: #ffffff;
+    }
+
+    /* Paragraph text */
+    #contact p {
+      color: #cccccc;
+    }
+
+    /* Icons */
+    #contact i {
+      color: #f5670f;
+      /* Accent color (orange) for icons */
+      font-size: 24px;
+      margin-right: 15px;
+    }
+
+    /* Info box wrapper styling */
+    #contact .info-wrap {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.1);
+    }
+
+    #contact .info-item:hover h3 {
+      color: #26a69a;
+    }
+
+    #contact .info-item:hover p {
+      color: #ffffff;
+    }
+  </style>
+
+</head>
+
+<body class="index-page dark-mode">
+
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <!-- Logo -->
+      <a href="#hero" class="logo d-flex align-items-center">
+        <h1 class="sitename">URS</h1>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav id="navmenu" class="navmenu d-flex align-items-center">
+        <ul class="d-flex align-items-center">
+          {% if user.is_authenticated %}
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+          <li>
+            <a href="{% url 'orderlist' %}">
+              Cart <span class="badge">{{ request.user|cart_item_count }}</span>
+            </a>
+          </li>
+          {% if user.is_superuser %}
+          <li><a href="{% url 'add_product' %}">Add Product</a></li>
+          {% endif %}
+          <li><span class="welcome-text active">Welcome {{ user.username }}</span></li>
+          <li><a href="{% url 'user_logout' %}" class="btn-getstarted">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'user_login' %}" class="btn-getstarted">Login</a></li>
+          <li><a href="{% url 'user_register' %}" class="btn-getstarted">Register</a></li>
+          {% endif %}
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <div class="background-image slide slide-1"></div>
+      <div class="background-image slide slide-2"></div>
+      <div class="background-image slide slide-3"></div>
+      <div class="background-image slide slide-4"></div>
+      <div class="background-image slide slide-5"></div>
+      <!-- Overlay + Content -->
+      <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <h2 style="font-family: 'Lucida Sans', sans-serif;">
+              Elevate Your Style with URS
+            </h2>
+            <p style="font-family: 'Lucida Sans', sans-serif;">
+              Discover handpicked fashion essentials for every season and every style.
+            </p>
+            <!-- <a href="#about" class="btn-get-started">Get Started</a> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- /Hero Section -->
+
+
+
+    {% csrf_token %}
+    <!-- {% if messages %}
+    {% for message in messages %}
+    <h2 style="color:green;text-align: center;">{{message}}</h2>
+    {% endfor %}
+    {% endif %} -->
+
+    <!-- Stats Section -->
+    <!-- <section id="stats" class="stats section accent-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>Clients</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>Projects</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>Hours Of Support</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>Workers</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section> -->
+    <!-- /Stats Section -->
+    <div class="container mt-5">
+      <div class="row">
+        {% for product in products %}
+        {% if product.pk %}
+        <div class="col-md-3 mb-4 d-flex align-items-stretch">
+          <div class="card bg-dark text-white w-100 shadow-lg border-0 rounded-4 product-card transition-all"
+            style="overflow: hidden;">
+            <div class="position-relative overflow-hidden" style="height: 290px;">
+              <img src="{{ product.img.url }}" class="card-img-top img-fluid h-100" alt="Product Image"
+                style="object-fit: cover; transition: transform 0.4s ease;">
+            </div>
+            <div class="card-body d-flex flex-column p-3">
+              <h5 class="card-title mb-2"
+                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                {{ product.name }}
+              </h5>
+              <p class="card-text mb-3">
+                <strong style="font-family: inherit;">Category:</strong> {{ product.category.category_name }}<br>
+                <strong style="font-family: inherit;">Price:</strong> ₹{{ product.price }}
+              </p>
+              <div class="mt-auto">
+                <!-- <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-outline-warning w-100 fw-bold"
+                  style="background-color: #f5670f !important; color: white !important; border: 1px solid #f5670f !important;">Add To Cart
+                </a> -->
+                <button class="btn btn-outline-warning w-100 fw-bold add-to-cart-btn" data-product-id="{{ product.pk }}"
+                  style="background-color: #f5670f !important; color: white !important; border: 1px solid #f5670f !important;">
+                  Add To Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <!-- About Section -->
+    <!-- About Section -->
+    <section id="about" class="about section" style="background-color: #121212; color: #e0e0e0;">
+      <div class="container bg-white text-dark p-5 rounded" style="box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+        <div class="row gy-4 align-items-center">
+
+          <!-- Image and Video -->
+          <div class="col-lg-6 position-relative order-lg-last order-first" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'img/about.jpg' %}" class="img-fluid rounded" alt="About Video Thumbnail">
+
+            <!-- Play Button Positioned over the Image -->
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox play-btn" style="
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             background: rgba(255, 255, 255, 0.7);
+             border-radius: 50%;
+             width: 64px;
+             height: 64px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 24px;
+             color: #000;
+             text-decoration: none;
+           ">
+              ▶
+            </a>
+          </div>
+
+          <!-- Text Content -->
+          <div class="col-lg-6 content order-last order-lg-first" data-aos="fade-up" data-aos-delay="100">
+            <h3>About Us</h3>
+            <p>
+              Dolor iure expedita id fuga asperiores qui sunt consequatur minima. Quidem voluptas deleniti...
+            </p>
+            <ul>
+              <li class="d-flex mb-3">
+                <i class="bi bi-diagram-3 me-3 text-warning"></i>
+                <div>
+                  <h5>Ullamco laboris nisi ut aliquip consequat</h5>
+                  <p>Magni facilis repellendus cum excepturi quaerat praesentium</p>
+                </div>
+              </li>
+              <li class="d-flex mb-3">
+                <i class="bi bi-fullscreen-exit me-3 text-warning"></i>
+                <div>
+                  <h5>Magnam soluta odio exercitationem reprehenderi</h5>
+                  <p>Totam dolorum distinctio dolorum laudantium</p>
+                </div>
+              </li>
+              <li class="d-flex">
+                <i class="bi bi-broadcast me-3 text-warning"></i>
+                <div>
+                  <h5>Voluptatem et qui exercitationem</h5>
+                  <p>Et velit et eos maiores est tempora et quos dolorem</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- /About Section -->
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div>
+      <!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <!-- Contact Info -->
+          <div class="col-lg-5">
+
+            <div class="info-wrap">
+
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h3>Address</h3>
+                  <p>A108 Adam Street, New York, NY 535022</p>
+                </div>
+              </div>
+              <!-- End Info Item -->
+
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-telephone flex-shrink-0"></i>
+                <div>
+                  <h3>Call Us</h3>
+                  <p>+1 5589 55488 55</p>
+                </div>
+              </div>
+              <!-- End Info Item -->
+
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h3>Email Us</h3>
+                  <p>info@example.com</p>
+                </div>
+              </div>
+              <!-- End Info Item -->
+
+              <!-- Google Map -->
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus"
+                frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </div> <!-- End .info-wrap -->
+          </div> <!-- End .col-lg-5 -->
+
+          <!-- Optional: Add a contact form or another column here -->
+          <!-- Example (if needed):
+      <div class="col-lg-7">
+        <form>...your contact form here...</form>
+      </div>
+      -->
+
+        </div> <!-- End .row -->
+      </div> <!-- End .container -->
+
+    </section>
+    <!-- End Contact Section -->
+
+
+
+
+
+
+
+    <footer id="footer" class="footer light-background">
+
+      <div class="container footer-top">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-12 footer-about">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <span class="badge">URS</span>
+            </a>
+            <p
+              style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+              At URS, we’re passionate about bringing you the latest fashion with quality you can trust. Whether you’re
+              updating your wardrobe or finding the perfect outfit, we’re here to help with easy returns, fast shipping,
+              and friendly customer service. Stay connected with us on social media for style tips and exclusive offers!
+            </p>
+            <div class="social-links d-flex mt-4">
+              <a href=""><i class="bi bi-twitter-x"></i></a>
+              <a href=""><i class="bi bi-facebook"></i></a>
+              <a href=""><i class="bi bi-instagram"></i></a>
+              <!-- <a href=""><i class="bi bi-linkedin"></i></a> -->
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-6 footer-links">
+            <h4 style="color: #f5670f;">Useful Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-6 footer-links">
+            <h4 style="color: #f5670f;">Our Services</h4>
+            <ul>
+              <li><a href="#">Web Design</a></li>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Product Management</a></li>
+              <li><a href="#">Marketing</a></li>
+              <li><a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+            <h4 style="color: #f5670f;">Contact Us</h4>
+            <p>A108 Adam Street</p>
+            <p>New York, NY 535022</p>
+            <p>United States</p>
+            <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p><strong>Email:</strong> <span>info@example.com</span></p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container copyright text-center mt-4">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">URS</strong> <span>All Rights Reserved</span></p>
+        <div class="credits">
+          All the links in the footer should remain intact.
+          You can delete the links only if you've purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: [buy-url]
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+
+    </footer>
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+    <!-- Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const slides = document.querySelectorAll(".background-image");
+        let current = 0;
+
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.remove("active");
+            if (i === index) {
+              slide.classList.add("active");
+            }
+          });
+        }
+
+        showSlide(current); // Show first slide initially
+
+        setInterval(() => {
+          current = (current + 1) % slides.length;
+          showSlide(current);
+        }, 3000); // change every 3 seconds
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const lightbox = GLightbox({ selector: '.glightbox' });
+      });
+    </script>
+    <script>
+      document.querySelector('.mobile-nav-toggle').addEventListener('click', function () {
+        document.querySelector('.navmenu ul').classList.toggle('show');
+      });
+    </script>
+
+    <!-- AJAX CODE FOR REFRESH -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const productId = this.dataset.productId;
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              body: JSON.stringify({ quantity: 1 }) // optional if your backend handles default quantity
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  // Update the cart badge
+                  const badge = document.querySelector('.badge');
+                  if (badge) {
+                    badge.textContent = data.cart_count;
+                  }
+                } else {
+                  alert("Failed to add to cart.");
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+          });
+        });
+      });
+    </script>
+
+
+</body>
+
+</html>

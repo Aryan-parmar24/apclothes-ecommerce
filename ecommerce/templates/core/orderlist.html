@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+{% load static %}
+{% load cart_template_tag %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Index - Bethany Bootstrap Template</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Vendor CSS Files -->
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: Bethany
+  * Template URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+    <head>
+        <!-- your existing meta, links, etc -->
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #121212;
+                /* Dark theme background */
+                color: white;
+            }
+
+            /* Optional: ensure .main doesn't override it */
+            .main {
+                background: transparent;
+            }
+
+            /* Optional: prevent white backgrounds from template */
+            section,
+            .section,
+            .container {
+                background-color: transparent !important;
+            }
+
+            .cart-wrapper {
+                background-color: #1f1f1f;
+                padding: 2rem;
+                border-radius: 10px;
+                box-shadow: 0 0 10px #00000088;
+                max-width: 800px;
+                margin: 40px auto;
+            }
+
+            .cart-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #2a2a2a;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                color: white;
+            }
+
+            .cart-item img {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-right: 15px;
+                display: none;
+                /* set to block if you add image */
+            }
+
+            .cart-item-info {
+                flex: 1;
+            }
+
+            .cart-item-actions {
+                text-align: right;
+            }
+
+            .cart-summary {
+                background-color: #2a2a2a;
+                padding: 1rem;
+                border-radius: 10px;
+                color: white;
+                text-align: right;
+                margin-top: 2rem;
+            }
+
+            .cart-summary strong {
+                font-size: 1.2rem;
+            }
+
+            .cart-buttons {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 1rem;
+            }
+
+            .cart-buttons .btn {
+                border-radius: 25px;
+                padding: 10px 25px;
+            }
+
+            .cart-item-info h5 {
+                color: white;
+                font-weight: 600;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* navbar */
+            /* NAVBAR THEME STYLES FROM INDEX.HTML */
+            .navmenu ul li {
+                display: inline-block;
+                margin-right: 15px;
+            }
+
+            
+
+            
+
+            /* Button styles (Logout/Login/Register) */
+        
+
+            
+
+            /* Cart count badge (red number) */
+            
+
+            .logo {
+                background-color: #f5670f !important;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+            }
+
+            .sitename {
+                color: #e0e0e0 !important;
+                margin: 0;
+                font-weight: 700;
+                font-size: 1.5rem;
+            }
+
+            /* ========================= */
+    /* NEW NAVBAR ADDITIONAL CSS */
+    /* ========================= */
+
+    .navmenu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .navmenu a {
+      color: #fff;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      background-color: transparent;
+    }
+
+    #header {
+      background: #1e1e1e;
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .navmenu a:hover {
+      background-color: #ff6600;
+      color: #fff;
+    }
+
+    /* Cart badge */
+    .badge {
+      background: #ff6600;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 5px;
+    }
+
+    /* Welcome text */
+    .welcome-text {
+      color: #fff;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+
+    /* Button styles (Login, Logout, Register) */
+    /* .btn-getstarted {
+      background-color: #ff6600;
+      color: white !important;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    } */
+
+    .btn-getstarted:hover {
+      background-color: #e85d04;
+      color: white;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .navmenu ul {
+        flex-direction: column;
+        background: #1e1e1e;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        display: none;
+      }
+
+      .mobile-nav-toggle {
+        display: block;
+      }
+
+      .navmenu.navmenu-open ul {
+        display: flex;
+      }
+    }
+.navmenu ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    /* Button styles (Logout/Login/Register) */
+    .btn-getstarted {
+            background-color: #0f110d!important;
+            color: white !important;
+            padding: 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-left: 15px;
+            display: inline-block;
+            white-space: nowrap;
+            text-align: center;
+            min-width: 100px;
+        }
+
+    .btn-getstarted:hover {
+      background-color: #f5670f !important;
+    }
+        </style>
+    </head>
+
+
+</head>
+
+<!-- <body class="starter-page-page"> -->
+
+<body class="index-page dark-mode">
+
+     <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <!-- Logo -->
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+        <h1 class="sitename">URS</h1>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav id="navmenu" class="navmenu d-flex align-items-center">
+        <ul class="d-flex align-items-center">
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+          <li>
+            <a href="{% url 'orderlist' %}">
+              Cart <span class="badge">{{ request.user|cart_item_count }}</span>
+            </a>
+          </li>
+          {% if user.is_superuser %}
+          <li><a href="{% url 'add_product' %}">Add Product</a></li>
+          {% endif %}
+          <li><span class="welcome-text active">Welcome {{ user.username }}</span></li>
+          <li><a href="{% url 'user_logout' %}" class="btn-getstarted">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'user_login' %}" class="btn-getstarted">Login</a></li>
+          <li><a href="{% url 'user_register' %}" class="btn-getstarted">Register</a></li>
+          {% endif %}
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+    <main class="main">
+
+        <!-- Page Title -->
+        <!-- <div class="page-title">
+    <div class="container">
+        <h2>Inner Page</h2>  
+        <nav class="breadcrumbs">
+            <ol>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li class="current">Order Details</li>
+            </ol>
+        </nav>
+    </div>
+</div> -->
+        <!-- End Page Title -->
+
+        <!-- Starter Section Section -->
+        <section id="starter-section" class="starter-section section">
+            <div class="cart-wrapper" data-aos="fade-up">
+                {% for order_item in order_items %}
+                <div class="cart-item">
+                    <!-- Optional image -->
+                    <img src="{% static 'img/product_placeholder.png' %}" alt="Product">
+
+                    <div class="cart-item-info">
+                        <h5>{{ order_item.product.name }}</h5>
+                        <p>Price: ₹{{ order_item.product.price }}</p>
+                        <p>
+                            Quantity:
+                            <a href="{% url 'add_item' order_item.product.pk %}"
+                                class="badge bg-success text-white">+</a>
+                            {{ order_item.quantity }}
+                            <a href="{% url 'remove_item' order_item.product.pk %}"
+                                class="badge bg-danger text-white">-</a>
+                        </p>
+                    </div>
+
+                    <div class="cart-item-actions">
+                        <p><strong>₹{{ order_item.get_total_price }}</strong></p>
+                    </div>
+                </div>
+                {% empty %}
+                <p>Your cart is empty.</p>
+                <a href="{% url 'index' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+                {% endfor %}
+
+                {% if order_items %}
+                <div class="cart-summary">
+                    <p><strong>Total: ₹{{ order.get_total_price|floatformat:2 }}</strong></p>
+                    <div class="cart-buttons">
+                        <a href="{% url 'checkout_page' %}" class="btn btn-warning">Checkout</a>
+                        <a href="/" class="btn btn-warning">Continue Shopping</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </section><!-- /Starter Section Section -->
+
+    </main>
+
+
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+    <!-- Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

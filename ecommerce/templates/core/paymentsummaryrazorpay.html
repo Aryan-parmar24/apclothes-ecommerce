@@ -1,0 +1,305 @@
+{% load static %}
+{% load cart_template_tag %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Summary</title>
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            padding-top: 80px;
+            background-color: #f8f9fa;
+        }
+
+
+
+        .portfolio-info ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .portfolio-info li {
+            margin-bottom: 10px;
+        }
+
+        body {
+            padding-top: 80px;
+            background-color: #121212;
+            color: #ddd;
+        }
+
+        .navmenu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navmenu a {
+            color: #fff;
+            padding: 8px 14px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background-color: transparent;
+        }
+
+        .navmenu a:hover {
+            background-color: #ff6600;
+            color: #fff;
+        }
+
+        /* Cart badge */
+        .badge {
+            background: #ff6600;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+
+        /* Welcome text */
+        .welcome-text {
+            color: #fff;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+
+        /* Button styles (Logout/Login/Register) */
+        .btn-getstarted {
+            /* background-color: #0f110d !important; */
+            color: white !important;
+            padding: 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-left: 15px;
+            display: inline-block;
+            white-space: nowrap;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        /* .navmenu a,
+        .btn-getstarted,
+        .btn {
+            background-color: #2c2c2c !important;
+            color: #ffffff !important;
+            border: 1px solid #444 !important;
+        } */
+
+        .btn-getstarted:hover {
+            background-color: #f5670f !important;
+        }
+
+        /* Mobile nav toggle */
+        .mobile-nav-toggle {
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Responsive nav */
+        @media (max-width: 991px) {
+            .navmenu ul {
+                flex-direction: column;
+                background: #1e1e1e;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                display: none;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .navmenu.navmenu-open ul {
+                display: flex;
+            }
+        }
+
+
+
+        .badge.bg-danger {
+            background-color: #ff4444 !important;
+        }
+
+        .portfolio-info {
+            background-color: #222;
+            color: black;
+        }
+
+        .portfolio-info ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .portfolio-info li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="header" class="header fixed-top bg-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <!-- Logo -->
+            <a href="{% url 'index' %}" class="logo d-flex align-items-center text-decoration-none">
+                <h1 class="text-white m-0">URS</h1>
+            </a>
+
+            <!-- Navigation Menu -->
+            <nav id="navmenu" class="navmenu d-flex align-items-center">
+                <ul class="d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}" class="btn-getstarted">Home</a></li>
+                    <li>
+                        <a href="{% url 'orderlist' %}" class="btn-getstarted">
+                            Cart <span class="badge">{{ request.user|cart_item_count }}</span>
+                        </a>
+                    </li>
+                    {% if user.is_superuser %}
+                    <li><a href="{% url 'add_product' %}" class="btn-getstarted">Add Product</a></li>
+                    {% endif %}
+                    <li><span class="welcome-text active">Welcome {{ user.username }}</span></li>
+                    <li><a href="{% url 'user_logout' %}" class="btn-getstarted">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'user_login' %}" class="btn-getstarted">Login</a></li>
+                    <li><a href="{% url 'user_register' %}" class="btn-getstarted">Register</a></li>
+                    {% endif %}
+                </ul>
+                <i class="mobile-nav-toggle bi bi-list"></i>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main">
+        <!-- Breadcrumb -->
+        <section class="portfolio-details py-5">
+            <div class="container">
+                <!-- {% for message in messages %}
+                <div class="alert alert-info">{{ message }}</div>
+                {% endfor %} -->
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="portfolio-info bg-white p-4 border rounded shadow-sm">
+                            <h4 class="mb-3">Payment Details</h4>
+                            <ul class="list-unstyled">
+                                <li><strong>Total Amount:</strong> ₹{{ final_price }}</li>
+                            </ul>
+
+                            <!-- Razorpay Hidden Form -->
+                            <form id="razorpay-form" action="{% url 'handlerequest' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+                                <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+                                <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+                            </form>
+
+                            <!-- Pay Now Button -->
+                            <button id="pay-button" class="btn btn-primary mt-3">Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var options = {
+        "key": "rzp_test_nGiHgJ82KyUMwR",
+        "amount": "{{ razorpay_amount }}", // in paise
+        "currency": "INR",
+        "name": "My Shop",
+        "description": "Order Payment",
+        "order_id": "{{ order_id }}",
+        "handler": function (response) {
+            // Prepare data
+            const data = new URLSearchParams();
+            data.append('razorpay_payment_id', response.razorpay_payment_id);
+            data.append('razorpay_order_id', response.razorpay_order_id);
+            data.append('razorpay_signature', response.razorpay_signature);
+
+            // Add CSRF token
+            data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+            // Submit form data via fetch
+            fetch('/handlerequest/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: data
+            })
+            .then(response => {
+                if (response.ok) {
+                    // ✅ Redirect to invoice after backend confirms
+                    window.location.href = '/invoice/';
+                } else {
+                    // ❌ If failed, redirect to payment failed page or show error
+                    alert("Payment verification failed.");
+                    window.location.href = '/paymentfailed/';
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Something went wrong.");
+                window.location.href = '/paymentfailed/';
+            });
+        },
+        "prefill": {
+            "name": "{{ request.user.username }}",
+            "email": "{{ request.user.email }}"
+        },
+        "theme": {
+            "color": "#f5670f"
+        }
+    };
+
+    var rzp = new Razorpay(options);
+
+    document.getElementById("pay-button").onclick = function (e) {
+        rzp.open();
+        e.preventDefault();
+    };
+</script>
+
+
+
+
+
+
+    <!-- JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/purecounter/purecounter.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+</body>
+
+
+</html>

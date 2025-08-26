@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }} - Description</title>
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- js link -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            margin-top: 5rem;
+            max-width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .border {
+            border-color: #2c2c2c !important;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #f5670f;
+        }
+
+        .text-muted {
+            color: #aaaaaa !important;
+        }
+
+        .text-danger {
+            color: #ff6b6b !important;
+        }
+
+        
+        .btn-warning {
+            background-color: #f5670f;
+            border-color: #f5670f;
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            background-color: #d45500;
+            border-color: #d45500;
+        }
+
+        a {
+            text-decoration: none;
+            color: #f5670f;
+        }
+
+        a:hover {
+            color: #ff7f2a;
+        }
+
+        img.img-fluid {
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            animation: zoomIn 0.5s ease;
+            cursor: zoom-out;
+        }
+
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row border p-4">
+            <div class="col-md-6">
+                <img src="{{ product.img.url }}" alt="{{ product.name }}" class="img-fluid animated-image">
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-3">{{ product.name }}</h2>
+                <p>{{ product.desc }}</p>
+                <h4 class="text-muted">Current Price: <span class="text-danger">Rs. {{ product.price }}</span></h4>
+                <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-warning mt-3">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+        <img id="zoomedImage" src="" alt="Zoomed Image">
+    </div>
+
+</body>
+<script>
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("zoomedImage");
+
+  function openImageModal(src) {
+    modal.style.display = "flex";
+    modalImg.src = src;
+  }
+
+  function closeImageModal() {
+    modal.style.display = "none";
+    modalImg.src = "";
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const image = document.querySelector(".animated-image");
+    image.addEventListener("click", () => {
+      openImageModal(image.src);
+    });
+  });
+</script>
+
+
+</html>

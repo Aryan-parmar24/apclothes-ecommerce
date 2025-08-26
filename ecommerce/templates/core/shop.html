@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+{% load static %}
+{% load cart_template_tag %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Index - Bethany Bootstrap Template</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Vendor CSS Files -->
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    <!-- js link -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <!-- Include Glightbox CSS and JS -->
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+<style>
+    body,
+    .main,
+    .footer,
+    .header,
+    .card,
+    .section {
+      background-color: #121212 !important;
+      color: #e0e0e0 !important;
+    }
+
+    #header {
+      background: #1e1e1e;
+      padding: 10px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    /* navbar */
+    .navmenu ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    /* ========================= */
+    /* NEW NAVBAR ADDITIONAL CSS */
+    /* ========================= */
+
+    .navmenu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .navmenu a {
+      color: #fff;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      background-color: transparent;
+    }
+
+    .navmenu a:hover {
+      background-color: #ff6600;
+      color: #fff;
+    }
+
+    /* Cart badge */
+    .badge {
+      background: #ff6600;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 5px;
+    }
+
+    /* Welcome text */
+    .welcome-text {
+      color: #fff;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+
+    /* Button styles (Login, Logout, Register) */
+    /* .btn-getstarted {
+      background-color: #ff6600;
+      color: white !important;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    } */
+
+    .btn-getstarted:hover {
+      background-color: #e85d04;
+      color: white;
+    }
+
+    /* Mobile nav toggle */
+    .mobile-nav-toggle {
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .navmenu ul {
+        flex-direction: column;
+        background: #1e1e1e;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        display: none;
+      }
+
+      .mobile-nav-toggle {
+        display: block;
+      }
+
+      .navmenu.navmenu-open ul {
+        display: flex;
+      }
+    }
+
+
+    /* Button styles (Logout/Login/Register) */
+    .btn-getstarted {
+            background-color: #0f110d!important;
+            color: white !important;
+            padding: 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-left: 15px;
+            display: inline-block;
+            white-space: nowrap;
+            text-align: center;
+            min-width: 100px;
+        }
+
+    .btn-getstarted:hover {
+      background-color: #f5670f !important;
+    }
+
+    /* Cart count badge (red number) */
+    .navmenu .badge {
+      background-color: #f5670f;
+      color: white;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 8px;
+      vertical-align: top;
+      margin-left: 4px;
+    }
+
+    .logo {
+      background-color: #f5670f !important;
+      background-color: #f5670f !important;
+      /* A medium-dark gray */
+      padding: 0.5rem 1rem;
+      /* Add some padding so text doesn't stick to edges */
+      border-radius: 4px;
+      /* Optional: rounded corners */
+    }
+
+    
+
+    /* card css */
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 20px rgba(255, 165, 0, 0.3);
+      transform: translateY(-5px);
+    }
+    .btn-getstarted:hover,
+    .btn:hover {
+      background-color: #f5670f !important;
+    }
+
+    .stats.section {
+      background-color: #1b1b1b !important;
+      color: #f0f0f0 !important;
+    }
+
+    .card {
+      background-color: #1e1e1e !important;
+      border: 1px solid #2e2e2e !important;
+    }
+
+    .card .card-title,
+    .card .card-text {
+      color: #ccc !important;
+    }
+
+    .footer {
+      background-color: #181818 !important;
+      color: #bdbdbd !important;
+    }
+
+    .footer a {
+      color: #bdbdbd !important;
+    }
+
+    .footer a:hover {
+      color: #ffffff !important;
+    }
+    </style>
+
+
+
+
+
+</head>
+
+<body>
+    <header id="header" class="header fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+            <!-- Logo -->
+            <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+                <h1 class="sitename">URS</h1>
+            </a>
+
+            <!-- Navigation Menu -->
+            <nav id="navmenu" class="navmenu d-flex align-items-center">
+                <ul class="d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+                    <li>
+                        <a href="{% url 'orderlist' %}">
+                            Cart <span class="badge">{{ request.user|cart_item_count }}</span>
+                        </a>
+                    </li>
+                    {% if user.is_superuser %}
+                    <li><a href="{% url 'add_product' %}">Add Product</a></li>
+                    {% endif %}
+                    <li><span class="welcome-text active">Welcome {{ user.username }}</span></li>
+                    <li><a href="{% url 'user_logout' %}" class="btn-getstarted">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'user_login' %}" class="btn-getstarted">Login</a></li>
+                    <li><a href="{% url 'user_register' %}" class="btn-getstarted">Register</a></li>
+                    {% endif %}
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            {% for product in products %}
+            {% if product.pk %}
+            <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                <div class="card bg-dark text-white w-100 shadow-lg border-0 rounded-4 product-card transition-all"
+                    style="overflow: hidden;">
+                    <div class="position-relative overflow-hidden" style="height: 290px;">
+                        <img src="{{ product.img.url }}" class="card-img-top img-fluid h-100" alt="Product Image"
+                            style="object-fit: cover; transition: transform 0.4s ease;">
+                    </div>
+                    <div class="card-body d-flex flex-column p-3">
+                        <h5 class="card-title mb-2"
+                            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                            {{ product.name }}
+                        </h5>
+                        <p class="card-text mb-3">
+                            <strong style="font-family: inherit;">Category:</strong> {{ product.category.category_name}}<br>
+                            <strong style="font-family: inherit;">Price:</strong> ₹{{ product.price }}
+                        </p>
+                        <div class="mt-auto">
+                            <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-outline-warning w-100 fw-bold"
+                                style="background-color: #f5670f !important; color: white !important; border: 1px solid #f5670f !important;">Add To Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer id="footer" class="footer light-background">
+
+        <div class="container footer-top">
+            <div class="row gy-4">
+                <div class="col-lg-5 col-md-12 footer-about">
+                    <a href="index.html" class="logo d-flex align-items-center">
+                        <span class="badge">URS</span>
+                    </a>
+                    <p
+                        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                        At URS, we’re passionate about bringing you the latest fashion with quality you can trust.
+                        Whether you’re
+                        updating your wardrobe or finding the perfect outfit, we’re here to help with easy returns, fast
+                        shipping,
+                        and friendly customer service. Stay connected with us on social media for style tips and
+                        exclusive offers!
+                    </p>
+                    <div class="social-links d-flex mt-4">
+                        <a href=""><i class="bi bi-twitter-x"></i></a>
+                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <a href=""><i class="bi bi-instagram"></i></a>
+                        <!-- <a href=""><i class="bi bi-linkedin"></i></a> -->
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4 style="color: #f5670f;">Useful Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Terms of service</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4 style="color: #f5670f;">Our Services</h4>
+                    <ul>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Product Management</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                    <h4 style="color: #f5670f;">Contact Us</h4>
+                    <p>A108 Adam Street</p>
+                    <p>New York, NY 535022</p>
+                    <p>United States</p>
+                    <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+                    <p><strong>Email:</strong> <span>info@example.com</span></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container copyright text-center mt-4">
+            <p>© <span>Copyright</span> <strong class="px-1 sitename">URS</strong> <span>All Rights Reserved</span></p>
+            <div class="credits">
+                All the links in the footer should remain intact.
+                You can delete the links only if you've purchased the pro version.
+                Licensing information: https://bootstrapmade.com/license/
+                Purchase the pro version with working PHP/AJAX contact form: [buy-url]
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+
+    </footer>
+</body>
+
+</html>
