@@ -58,4 +58,45 @@ _Add screenshots here to showcase the UI/UX_
 
 ## 📁 Project Structure
 
----
+---```bash
+# 1. Clone the repository
+git clone https://github.com/Aryan-parmar24/apclothes-ecommerce.git
+cd apclothes-ecommerce
+
+# 2. Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate   # For Windows
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Set up the database
+python manage.py makemigrations
+python manage.py migrate
+
+# 5. Create a superuser (admin login)
+python manage.py createsuperuser
+
+# 6. Run the development server
+python manage.py runserver
+
+# 7. Open in your browser
+# Go to: http://127.0.0.1:8000/
+```
+## 💳 Razorpay Integration Notes:
+Test API keys are used by default (can be found in Razorpay dashboard)
+To go live, replace the test keys with live keys in your payment config
+Webhook support can be added for secure server-side verification
+## 🙌 Contributing
+Contributions are welcome!
+Feel free to fork this repo, create a feature branch, and submit a pull request (PR).
+
+## 📃 License
+This project is open-source and available under the MIT License.
+
+## 📬 Contact
+Created by Aryan Parmar
+Feel free to reach out for questions, suggestions, or collaborations.
+
+
+
